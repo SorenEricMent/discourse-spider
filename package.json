@@ -1,0 +1,8 @@
+{
+  "type": "module",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.10",
+    "commonjs": "^0.0.1",
+    "sqlite3": "^5.0.8"
+  }
+}
