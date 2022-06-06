@@ -1,11 +1,17 @@
 {
-    "targetList": [
+    "target_name": "target1",
+    "with": [
         {
-            "forum_url": "https://limelight.moe",
-            "credentials": {
-                "username": "",
-                "password": ""
-            }
+            "url": "https://limelight.moe",
+            "username": "limelight",
+            "password": "password",
+            "interval": "10000"
+        },
+        {
+            "url": "https://proxyedlimelight.moe",
+            "username": "bot2",
+            "password": "password2",
+            "interval": "10000"
         }
     ]
 }

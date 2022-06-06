@@ -1,6 +1,19 @@
 import {request} from "https";
 
-let gUserAgent = "Discourse-Spider/0.1 WinslowSorenEricMent/114514 NodeJS/" + process.version;
+const gUserAgent = "Discourse-Spider/0.1 By/WinslowSorenEricMent NodeJS/" + process.version;
+
+const gHeader = {
+    "headers":{
+        "accept": "*/*",
+        "discourse-present": "true",
+        "discourse-track-view": "true",
+        "sec-ch-ua": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"102\"",
+        "user-agent": gUserAgent,
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Linux\"",
+        "x-requested-with": "XMLHttpRequest"
+    }
+};
 
 
 function cookieParser(raw){
@@ -39,7 +52,6 @@ function cookieRestore(obj){
 
 function isArray(obj){
     return Object.prototype.toString.call(obj) === "[object Array]";
-
 }
 
 function HTTPSRequest(host,body,options,callback){
@@ -59,4 +71,20 @@ function HTTPSRequest(host,body,options,callback){
     newRequest.write(body);
     newRequest.end();
 }
-export {cookieParser, cookieRestore, HTTPSRequest, gUserAgent};
+
+function mergeJSON(origin,override){
+    for(const key in override){
+        if(typeof override[key] === "object"){
+            if(isArray(override[key])){
+                origin[key] = override[key];
+            }else{
+                mergeJSON(origin[key],override[key]);
+            }
+        }else{
+            origin[key] = override[key];
+        }
+    }
+    return origin;
+}
+
+export {cookieParser, cookieRestore, HTTPSRequest, mergeJSON, gHeader};
