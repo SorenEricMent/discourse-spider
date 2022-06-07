@@ -60,43 +60,43 @@ const discourse = {
                 reject(e);
             }
         });
-    },
-    "manifest":{
-        "self": function(host,cookie){
-            return new Promise((resolve,reject)=>{
-                let requestData = {
-                    "headers": {
-                        "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
-                        "sec-fetch-dest": "empty",
-                        "sec-fetch-mode": "cors",
-                        "sec-fetch-site": "same-origin",
-                        "cookie": cookie,
-                        "Referer": host + "/login",
-                        "Referrer-Policy": "strict-origin-when-cross-origin"
-                    }
-                };
-                requestData = mergeJSON(requestData,gHeader);
-                https.get(host + "/session/current.json", requestData, (res) => {
-                    let response = Buffer.alloc(0);
-                    res.on('data', function (chunk) {
-                        response = Buffer.concat([response, chunk]);
-                    });
-                    res.on('end', () => {
-                        response = response.toString();
-                        let data = JSON.parse(response);
-                        if(data.hasOwnProperty("current")){
-                            resolve(data.current);
-                        }else{
-                            reject("Failed to request current manifest, cookie expired?");
-                        }
-                    });
-                });
-            });
-        }
-    },
-    "user":{
-
     }
+   },
+   "manifest":{
+       "self": function(host,cookie){
+           return new Promise((resolve,reject)=>{
+               let requestData = {
+                   "headers": {
+                       "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+                       "sec-fetch-dest": "empty",
+                       "sec-fetch-mode": "cors",
+                       "sec-fetch-site": "same-origin",
+                       "cookie": cookie,
+                       "Referer": host + "/login",
+                       "Referrer-Policy": "strict-origin-when-cross-origin"
+                   }
+               };
+               requestData = mergeJSON(requestData,gHeader);
+               https.get(host + "/session/current.json", requestData, (res) => {
+                   let response = Buffer.alloc(0);
+                   res.on('data', function (chunk) {
+                       response = Buffer.concat([response, chunk]);
+                   });
+                   res.on('end', () => {
+                       response = response.toString();
+                       let data = JSON.parse(response);
+                       if(data.hasOwnProperty("current")){
+                           resolve(data.current);
+                       }else{
+                           reject("Failed to request current manifest, cookie expired?");
+                       }
+                   });
+               });
+           });
+       }
+   },
+   "user":{
+
    }
 }
 
