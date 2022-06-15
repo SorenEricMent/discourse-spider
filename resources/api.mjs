@@ -21,4 +21,12 @@ const api = {
     }
 }
 
+function loginMultiAccounts(credentials){
+    return new Promise((resolve,reject)=>{
+    
+
+
+        
+    });
+}
 export {api};
